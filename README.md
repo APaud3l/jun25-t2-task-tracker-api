@@ -11,3 +11,7 @@ Creating a simple task tracker api with authentication, authorisation and CRUD f
 - CRUD Operations for tasks (Create, Read, Update, Delete)
 - Mark task as "To Do", "In Progress", "Done"
 - Assign due dates for tasks
+
+## Model Definition
+- User: email, password, role, 
+- Task: title, status, dueDate, user  
