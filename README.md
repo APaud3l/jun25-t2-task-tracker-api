@@ -13,5 +13,5 @@ Creating a simple task tracker api with authentication, authorisation and CRUD f
 - Assign due dates for tasks
 
 ## Model Definition
-- User: email, password, role, 
+- User: email, password, role (admin/user) 
 - Task: title, status, dueDate, user  

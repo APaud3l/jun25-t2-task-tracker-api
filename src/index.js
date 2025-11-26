@@ -17,6 +17,9 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+const authRoutes = require('./routes/auth');
+app.use('/api/v1/auth', authRoutes);
+
 app.get('/', (request, response) => {
   response.json({
     message: 'Hello from Task Tracker!',
