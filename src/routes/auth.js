@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-router.post('/signup', async (request, response) => {
+// eslint-disable-next-line no-unused-vars
+router.post('/signup', async (request, response, next) => {
     try {
         const { email, password, role } = request.body;
 
@@ -15,6 +16,7 @@ router.post('/signup', async (request, response) => {
             message: 'User registered'
         });
     } catch (error) {
+        console.log(error);
         response.status(400).json({
             error: error.message
         });
