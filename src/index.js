@@ -20,6 +20,9 @@ app.use(express.json());
 const authRoutes = require('./routes/auth');
 app.use('/api/v1/auth', authRoutes);
 
+const taskRoutes = require('./routes/tasks');
+app.use('/api/v1/tasks', taskRoutes);
+
 app.get('/', (request, response) => {
   response.json({
     message: 'Hello from Task Tracker!',
