@@ -44,4 +44,23 @@ app.all(/.*/, (request, response) => {
     });
 });
 
+// eslint-disable-next-line no-unused-vars
+app.use((error, request, response, next) => {
+  // Extract status from error, default to 500
+  const status = error.status || 500;
+  
+  // Log server-side errors for debugging (only for dev mode)
+  if (status === 500) {
+    console.error(error.stack || error);
+  }
+
+  //  Send JSON error with message
+  response
+  .status(status)
+  .json({
+    error: error.message || 'Internal Server Error',
+    name: error.name
+  });
+});
+
 module.exports = app;

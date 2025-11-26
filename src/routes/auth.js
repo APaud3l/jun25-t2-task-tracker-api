@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-// eslint-disable-next-line no-unused-vars
 router.post('/signup', async (request, response, next) => {
     try {
         const { email, password, role } = request.body;
@@ -16,26 +15,39 @@ router.post('/signup', async (request, response, next) => {
             message: 'User registered'
         });
     } catch (error) {
-        console.log(error);
-        response.status(400).json({
-            error: error.message
-        });
+        // console.log(error);
+        // response.status(400).json({
+        //     error: error.message
+        // });
+        // Use error handling middleware
+        error.status = 400;
+        next(error); // Passed on to the global error handler
     }
 });
 
-router.post('/login', async (request, response) => {
+router.post('/login', async (request, response, next) => {
     try{
         const { email, password } = request.body;
 
         const user = await User.findOne({ email });
-        if (!user) return response.status(400).json({
-            error: 'Invalid email'
-        });
+        // if (!user) return response.status(400).json({
+        //     error: 'Invalid email'
+        // });
+        if (!user) {
+            const error = new Error('Invalid email');
+            error.status = 400;
+            return next(error);
+        }
 
         const match = await bcrypt.compare(password, user.password);
-        if (!match) return response.status(400).json({
-            error: 'Invalid password'
-        });
+        // if (!match) return response.status(400).json({
+        //     error: 'Invalid password'
+        // });
+        if (!match) {
+            const error = new Error('Invalid password');
+            error.status = 400;
+            return next(error);
+        }
 
         const token = jwt.sign(
             {
@@ -48,9 +60,11 @@ router.post('/login', async (request, response) => {
         );
         response.json({ token });
     } catch (error) {
-        response.status(400).json({
-            error: error.message
-        });
+        // response.status(400).json({
+        //     error: error.message
+        // });
+        error.status = 400;
+        next(error);
     }
 });
 
