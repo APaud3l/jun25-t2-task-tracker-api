@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: ['http://localhost:5000', 'https://deployedFrontend.com'],
+  origin: ['http://localhost:5000', 'https://deployedFrontend.com', 'http://localhost:5173'],
   optionsSuccessStatus: 200,
 };
 
@@ -64,3 +64,4 @@ app.use((error, request, response, next) => {
 });
 
 module.exports = app;
+
